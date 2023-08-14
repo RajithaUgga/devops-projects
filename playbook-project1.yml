@@ -1,39 +1,37 @@
 ---
 - name: install jenkins ang configure using ansible-playbook
-  hosts: ansible-playbook
+  hosts: all
   become: yes
   tasks:
    - name: update the repository
-      apt: update_cache
-      ignore_errors: yes
-   - name: set time-zone   
-      command: timedatectl set-timezone Asia/Kolkata
+     apt: update_cache=yes
+     ignore_errors: yes
+   - name: set time-zone
+     command: timedatectl set-timezone Asia/Kolkata
    - name: install NTP software
-      apt: name=ntp state=present
+     apt: name=ntp state=present
    - name: install git
-      apt: name=git state=present
+     apt: name=git state=present
    - name: install curl
-      apt: name=curl state=present
-   - name: install wget 
-      apt: name=wget state=present
+     apt: name=curl state=present
+   - name: install wget
+     apt: name=wget state=present
    - name: install unzip
-      apt: name=unzip state=present
-   - name: install tree 
-      apt: name=tree state=present
+     apt: name=unzip state=present
+   - name: install tree
+     apt: name=tree state=present
    - name: install java
-      apt: name=openjdk-11-jre  state=present
+     apt: name=openjdk-11-jre  state=present
    - name: install maven
-      apt: name=maven  state=present
+     apt: name=maven  state=present
    - name: install jenkins-apt-repository key
-      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key   state=present
-      become: yes
+     apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key   state=present
+     become: yes
    - name: configuring the repository
-      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/'  state=present
+     apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/'  state=present
    - name: ensure jenkins is installed
      become: yes
-       apt: name=jenkins  update_cache=yes
+     apt: name=jenkins  update_cache=yes
    - name: ensure jenkins is running
-      apt: name: jenkins state=started
-...           
-  
-                
+     apt: name=jenkins state=present
+...
