@@ -2,10 +2,10 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.aws.codestar.projecttemplates</groupId>
-    <artifactId>b69am</artifactId>
+    <artifactId>projects</artifactId>
     <version>6.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Cloud Binary - Sample Spring MVC Application</name>
+    <name>devops-project1</name>
 
     <properties>
         <junit.platform.version>1.2.0</junit.platform.version>
@@ -13,11 +13,12 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.organization>kummari</sonar.organization>
-        <sonar.projectKey>kummari_b69am</sonar.projectKey>
-        <sonar.login>3ec29276c1e1d3be60097cd4e7c40c47bb72f33c</sonar.login>
-        
+        <sonar.organization>devops-projects2628</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>     
+        <sonar.projectKey>devops-projects2628_project1</sonar.projectKey>
+        <sonar.login>9dc130439c01b886765538b50ffcbfa8c6204a96</sonar.login>
+
+              
     </properties>
 
     <!--
