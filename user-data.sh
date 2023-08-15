@@ -59,5 +59,10 @@ vi authorized_keys #paste the public key from ansible-controller machine
 exit # from ubuntu to root
 
 
+----------------------
+#selfhosted sonarqube
+sudo hostnamectl set-hostname "sonarqube"
+echo "`hostname -I|awk '{print $1}'` `hostname`">> /etc/hosts
+
 
 

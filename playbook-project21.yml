@@ -1,0 +1,69 @@
+#sonarQube selfhosted
+---
+- name: Install and Configure SonarQube
+  hosts: sonarqube
+  become: yes
+
+  tasks:
+    - name: Update apt cache (for Ubuntu)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+# install and configure postgres
+- name: Install and Configure PostgreSQL
+  hosts: postgresql_servers
+  become: yes
+
+  roles:
+    - name: geerlingguy.postgresql
+      vars:
+        postgresql_databases:
+          - name: postgres
+            encoding: UTF8
+            lc_collate: en_US.UTF-8
+            lc_ctype: en_US.UTF-8
+        postgresql_users:
+          - name: admin
+            password: Admin@123456
+            encrypted: yes
+            roles:
+              - name: db
+                priv: "ALL"
+
+
+    - name: Install OpenJDK 11
+      apt:
+        name: openjdk-11-jdk
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Add SonarQube APT repository key (for Ubuntu)
+      apt_key:
+        url: https://binaries.sonarsource.com/CommercialDistribution/sonarqube-developer/archive-key.asc
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Add SonarQube APT repository (for Ubuntu)
+      apt_repository:
+        repo: 'deb https://binaries.sonarsource.com/CommercialDistribution/sonarqube-developer/ {{ ansible_distribution_release }} main'
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Install SonarQube
+      apt:
+        name: sonarqube-developer
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Configure SonarQube properties
+      template:
+        src: sonarqube.properties.j2
+        dest: /opt/sonarqube/conf/sonar.properties
+      notify: Restart SonarQube
+
+  handlers:
+    - name: Restart SonarQube
+      systemd:
+        name: sonarqube
+        state: restarted
+...
