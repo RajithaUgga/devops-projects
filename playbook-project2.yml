@@ -1,6 +1,6 @@
 ---
 - name: install jenkins ang configure using ansible-playbook
-  hosts: all
+  hosts: jenkins
   become: yes
   tasks:
    - name: update the repository

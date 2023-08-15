@@ -27,7 +27,7 @@
             password: Admin@123456
             encrypted: yes
             roles:
-              - name: db
+              - name: postgres
                 priv: "ALL"
 
 
